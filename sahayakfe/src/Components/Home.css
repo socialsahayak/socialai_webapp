@@ -1,0 +1,212 @@
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1c1c1c; /* Dark background */
+  color: white; /* Text color for dark theme */
+}
+
+section {
+  padding: 40px 20px;
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+}
+
+/* Buttons */
+button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Hero Section */
+#home {
+  background-color: #343a40; /* Dark background */
+  color: white;
+  text-align: center;
+  padding: 80px 20px;
+}
+
+#home .content h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+#home .cta {
+  font-size: 1.2em;
+  padding: 15px 30px;
+  background-color: #28a745;
+  border-radius: 50px;
+}
+
+#home .cta:hover {
+  background-color: #218838;
+}
+
+/* Services Section */
+#services {
+  background-color: #2d2d2d; /* Dark background for services */
+}
+
+.services-title {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.5em;
+}
+
+.services-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.service-card {
+  background-color: #444; /* Dark card background */
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  min-width: 280px;
+  color: white; /* Text color for dark card */
+}
+
+.service-card h3 {
+  font-size: 1.5em;
+  margin-top: 15px;
+}
+
+.service-card p {
+  font-size: 1em;
+  color: #bbb; /* Light gray for descriptions */
+}
+
+.service-card img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 20px;
+}
+
+/* About Us Section */
+#about {
+  background-color: #343a40; /* Dark background */
+  text-align: center;
+  padding: 60px 20px;
+}
+
+#about p {
+  font-size: 1.2em;
+  color: #bbb; /* Light gray text */
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Feedback Section */
+#feedback {
+  background-color: #2d2d2d; /* Dark background */
+  padding: 60px 20px;
+}
+
+.feedback-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.feedback-form input,
+.feedback-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #444; /* Dark border */
+  border-radius: 5px;
+  font-size: 1em;
+  background-color: #333; /* Dark background */
+  color: white;
+}
+
+.feedback-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.feedback-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Media Queries for Responsiveness */
+
+/* For Tablets and Larger Screens */
+@media (max-width: 1024px) {
+  .services-container {
+    justify-content: center;
+  }
+
+  .service-card {
+    flex: 1 1 40%;
+    max-width: 350px;
+  }
+}
+
+/* For Mobile Devices */
+@media (max-width: 768px) {
+  #home .content h1 {
+    font-size: 2.5em;
+  }
+
+  .cta {
+    font-size: 1em;
+    padding: 12px 25px;
+  }
+
+  .services-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .service-card {
+    min-width: 100%;
+    max-width: 90%;
+  }
+
+  #about p {
+    font-size: 1em;
+    padding: 0 10px;
+  }
+
+  .feedback-form input,
+  .feedback-form textarea {
+    font-size: 0.9em;
+  }
+
+  .feedback-form button {
+    font-size: 1em;
+  }
+}
+
+/* For Mobile Portrait Devices */
+@media (max-width: 480px) {
+  #home .content h1 {
+    font-size: 2em;
+  }
+
+  .cta {
+    padding: 10px 20px;
+  }
+}

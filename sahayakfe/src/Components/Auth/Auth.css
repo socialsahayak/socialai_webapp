@@ -1,0 +1,11 @@
+/* Auth.css */
+
+/* Center the Signup and Login form within the viewport */
+.Authmain {
+    height: 100vh;               /* Full viewport height */
+    width: 100%;                 /* Full width */
+    display: flex;               /* Use flexbox for centering */
+    flex-direction: column;      /* Align items vertically */
+    justify-content: center;     /* Vertically center the content */
+    align-items: center;         /* Horizontally center the content */
+}

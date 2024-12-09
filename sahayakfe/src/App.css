@@ -1,0 +1,28 @@
+/* Dark Mode Styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+body.light-mode {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Additional Styling for Buttons, Navbar, etc. */
+button {
+  color: #fff;
+}
+
+.navbar {
+  background-color: #343a40;
+}
+
+.navbar .nav-link {
+  color: #f9f9f9;
+}
+
+.navbar .nav-link:hover {
+  background-color: #007bff;
+  color: #fff;
+}

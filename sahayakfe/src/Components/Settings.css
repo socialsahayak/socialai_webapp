@@ -1,0 +1,32 @@
+/* Settings container styling */
+.settings-container {
+  background-color: #343a40;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.settings-container h3 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+/* List Group Item Styling */
+.list-group-item {
+  background-color: #343a40 !important;
+}
+
+.list-group-item:hover {
+  background-color: #505050;
+  cursor: pointer;
+}
+
+button {
+  text-align: left;
+  padding: 12px;
+  font-size: 1.1em;
+}
+
+/* Add hover effect to buttons */
+button:hover {
+  background-color: #6c757d;
+}
