@@ -3,6 +3,7 @@ const cors = require('cors');
 const connectDB = require('./db');
 const userRoutes = require('./routes/userRoute');
 const feedbackRoutes = require('./routes/feedbackRoutes');
+const axios = require('axios'); // Import Axios for HTTP requests
 const cookieParser = require('cookie-parser');
 const dotenv = require('dotenv');
 
@@ -39,9 +40,34 @@ if (process.env.NODE_ENV === 'development') {
   });
 }
 
-// Routes
-app.use('/api/user', userRoutes); // User-related routes
-app.use('/api/feedback', feedbackRoutes); // Feedback-related routes
+// Route to interact with Flask API
+app.post('/api/question', async (req, res) => {
+  const { question } = req.body;
+  console.log(question);
+  if (!question) {
+    return res.status(400).json({ error: 'Question is required' });
+  }
+
+  try {
+    // Flask API URL from ngrok
+    const flaskApiUrl = process.env.FLASK_API_URL;
+
+    // Make a POST request to the Flask API
+    const response = await axios.post('https://5ff9-34-141-158-98.ngrok-free.app/process_question', { question });
+
+    // Send Flask API response back to the client
+    res.json(response.data);
+  } catch (error) {
+    console.error('Error communicating with Flask API:', error.message);
+    res.status(500).json({ error: 'Failed to communicate with Flask API' });
+  }
+});
+
+// User-related routes
+app.use('/api/user', userRoutes);
+
+// Feedback-related routes
+app.use('/api/feedback', feedbackRoutes);
 
 // Catch-all error handler
 app.use((err, req, res, next) => {

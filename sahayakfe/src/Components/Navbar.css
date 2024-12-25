@@ -1,14 +1,32 @@
-/* Profile Icon Styling */
-.profile-circle {
-  background-color: #007bff;
-  border-radius: 50%;
-  color: white;
-  width: 40px;
-  height: 40px;
-  font-size: 1.3em;
-  cursor: pointer;
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.profile-circle:hover {
-  background-color: #0056b3;
+.profile-dropdown {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background: #343a40;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.profile-dropdown .dropdown-item {
+  color: white;
+  background: none;
+  border: none;
+  text-align: left;
+  padding: 10px;
+  border-radius: 4px;
+  width: 100%;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.profile-dropdown .dropdown-item:hover {
+  background: #495057;
 }
