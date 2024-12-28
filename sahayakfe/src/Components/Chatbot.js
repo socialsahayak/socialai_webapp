@@ -52,7 +52,7 @@ const Chatbot = () => {
 
       try {
         const response = await axios.post(
-          `${API_BASE_URL}/api/question`,
+          "http://localhost:5000/api/question",
           { question: inputValue },
           { headers: { 'Content-Type': 'application/json' } }
         );

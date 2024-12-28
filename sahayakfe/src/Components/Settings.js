@@ -52,6 +52,9 @@ const Settings = () => {
 
       if (response.status === 200) {
         alert(response.data.message || 'Account deleted successfully!');
+         setTimeout(() => {
+          window.location.reload(); // Refresh the page
+        }, 2000);
 
         // Redirect to the homepage after successful account deletion
         navigate('/');

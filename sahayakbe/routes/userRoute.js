@@ -8,6 +8,7 @@ const router = express.Router();
 // Use cookie-parser middleware
 router.use(cookieParser());
 
+
 // Signup Route
 router.post('/signup', async (req, res) => {
   try {
@@ -97,6 +98,7 @@ router.get('/protected', verifyToken, (req, res) => {
 });
 
 // Logout Route
+// Logout Route
 router.post('/logout', (req, res) => {
   res.clearCookie('token', {
     httpOnly: true,
@@ -106,6 +108,30 @@ router.post('/logout', (req, res) => {
   res.json({ message: 'Logged out successfully' });
 });
 
+// In your Express routes (userRoutes.js or similar)
+router.put('/edit-profile', verifyToken, async (req, res) => {
+  try {
+    const { username } = req.body;
+
+    if (!username) {
+      return res.status(400).json({ error: 'Username is required' });
+    }
+
+    const user = await User.findById(req.user.userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    user.username = username;
+    await user.save();
+
+    // Send back updated username and email
+    res.json({ message: 'Profile updated successfully', username: user.username, email: user.email });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).json({ error: 'Unable to update profile' });
+  }
+});
 
 
 
@@ -129,7 +155,7 @@ router.get('/info', verifyToken, async (req, res) => {
 
 
 // Delete User Account
-router.delete('/delete', verifyToken, async (req, res) => {
+router.delete('/delete-account', verifyToken, async (req, res) => {
   try {
     const user = await User.findByIdAndDelete(req.user.userId);
     if (!user) {

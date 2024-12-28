@@ -5,10 +5,10 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap styles
 import './Navbar.css'; // Custom styles
 
-const Navbar = ({ isLoggedIn, handleLogout }) => {
+const Navbar = ({ isLoggedIn, handleLogout, username: propUsername, email: propEmail }) => {
   const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState(propUsername || 'User');
+  const [email, setEmail] = useState(propEmail || '');
   const navigate = useNavigate();
 
   const toggleProfileDropdown = () => {
@@ -38,6 +38,22 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
       setEmail('');
     }
   }, [isLoggedIn]); // Re-fetch user info when isLoggedIn changes
+
+  const handleLogoutClick = () => {
+    // Call the handleLogout function from props
+    handleLogout();
+
+    // Redirect to home page
+    navigate('/');
+  };
+
+  // Handle username update from the parent component (e.g., after the user edits their profile)
+  useEffect(() => {
+    if (propUsername && propEmail) {
+      setUsername(propUsername);
+      setEmail(propEmail);
+    }
+  }, [propUsername, propEmail]);
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
@@ -90,7 +106,7 @@ const Navbar = ({ isLoggedIn, handleLogout }) => {
                     <button className="dropdown-item" onClick={() => navigate('/settings')}>
                       Settings
                     </button>
-                    <button className="dropdown-item" onClick={handleLogout}>
+                    <button className="dropdown-item" onClick={handleLogoutClick}>
                       Logout
                     </button>
                   </div>

@@ -1,70 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { UserContext } from '../App'; // Import UserContext
 
 const EditProfile = () => {
-  const [userProfile, setUserProfile] = useState({ username: '', email: '' });
-  const [updatedProfile, setUpdatedProfile] = useState({ username: '', email: '' });
+  const [username, setUsername] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
+  const { handleProfileUpdate } = useContext(UserContext); // Get profile update function from context
 
-  // Fetch the user's current profile data
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/user/info', { withCredentials: true })
-      .then(response => {
-        setUserProfile(response.data);
-        setUpdatedProfile(response.data); // Prepopulate the form with current data
-      })
-      .catch(error => {
-        console.error('Error fetching user profile:', error);
-      });
-  }, []);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedProfile({ ...updatedProfile, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.put('http://localhost:5000/api/user/edit-profile', updatedProfile, { withCredentials: true })
-      .then(response => {
-        alert('Profile updated successfully');
-        setUserProfile(updatedProfile); // Update the UI with the latest profile
-      })
-      .catch(error => {
-        console.error('Error updating profile:', error);
-      });
+    try {
+      const response = await axios.put('http://localhost:5000/api/user/edit-profile', 
+        { username },
+        { withCredentials: true }
+      );
+      
+      if (response.status === 200) {
+        // Update profile in the context
+        handleProfileUpdate(response.data);
+
+        // Show success message
+        setSuccessMessage('Profile updated successfully!');
+        
+        // After 2 seconds, refresh the page
+      }
+    } catch (error) {
+      console.error('Error updating profile:', error);
+    }
   };
 
   return (
-    <div className="settings-section">
-      <h4>Edit Profile</h4>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formUsername">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            name="username"
-            value={updatedProfile.username}
-            onChange={handleChange}
-            placeholder="Enter your username"
+    <div>
+      <h2>Edit Profile</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Username:</label>
+          <input 
+            type="text" 
+            value={username} 
+            onChange={(e) => setUsername(e.target.value)} 
+            required 
           />
-        </Form.Group>
+        </div>
+        <button type="submit">Update</button>
+      </form>
 
-        <Form.Group controlId="formEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            name="email"
-            value={updatedProfile.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
-          />
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Save Changes
-        </Button>
-      </Form>
+      {/* Display success message if profile update was successful */}
+      {successMessage && (
+        <div style={{ marginTop: '10px', color: 'green' }}>
+          {successMessage}
+        </div>
+      )}
     </div>
   );
 };
